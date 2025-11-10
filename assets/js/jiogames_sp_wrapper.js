@@ -133,9 +133,6 @@ window.onAdClosed = function (data, pIsVideoCompleted, pIsEligibleForReward) {
   adSpotKey == adSpotInterstitial &&
     ((isAdReady = false),
     console.log("JioGames: onAdClose MidRoll " + isAdReady));
-  //   {
-  //     location.replace("index.html");
-  //   }
   adSpotKey == adSpotRewardedVideo &&
     ((isRVReady = false),
     console.log("JioGames: onAdClose RewardedVideo " + isRVReady));
@@ -143,16 +140,6 @@ window.onAdClosed = function (data, pIsVideoCompleted, pIsEligibleForReward) {
   if (adSpotKey == adSpotRewardedVideo && isEligibleForReward) {
     GratifyReward();
   }
-
-  // If page requested navigation after the interstitial ad, do it now.
-  //   try {
-  //     if (window._navigateToHomeAfterAd && adSpotKey == adSpotInterstitial) {
-  //       window._navigateToHomeAfterAd = false;
-  //       location.replace("index.html");
-  //     }
-  //   } catch (e) {
-  //     console.warn("onAdClosed navigation failed", e);
-  //   }
 };
 
 window.onAdFailedToLoad = function (data, pDescription) {

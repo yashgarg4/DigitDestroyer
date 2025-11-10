@@ -976,13 +976,13 @@ function showInstructions() {
   }
 }
 
-function giveReward(){
-    if (game) {
-      game.timeLeft += 20;
-      game.isPaused = false;
-      game._startTimer();
-      game.updateDisplay();
-      game.sound.sfxPowerUp();
-      showInstructions();
-    }
+function giveReward() {
+  if (game) {
+    game.timeLeft += 20;
+    game.isPaused = false;
+    game._startTimer();
+    game.updateDisplay();
+    game.sound.sfxPowerUp();
+    showInstructions();
+  }
 }

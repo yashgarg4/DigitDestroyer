@@ -1,112 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <link
+      rel="shortcut icon"
+      href="./assets/icons/ficon.jpeg"
+      type="image/x-icon"
+    />
+    <title>Digit Destroyer | Home</title>
+    <link rel="stylesheet" href="./assets/css/home.style.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <link rel="shortcut icon" href="./assets/icons/ficon.jpeg" type="image/x-icon" />
-  <title>Digit Destroyer | Home</title>
-  <link rel="stylesheet" href="./assets/css/home.style.css" />
-</head>
-
-<body>
-  <!-- Splash Screen -->
-  <div id="splashDisplay" class="splash-container">
-    <div class="splash-content">
-      <img src="./assets/icons/digitdestro.jpg" alt="Digit Destroyer Logo" class="splash-logo" />
-      <div class="linear-loader">
-        <div class="bar"></div>
+  <body>
+    <!-- Splash Screen -->
+    <div id="splashDisplay" class="splash-container">
+      <div class="splash-content">
+        <img
+          src="./assets/icons/digitdestro.jpg"
+          alt="Digit Destroyer Logo"
+          class="splash-logo"
+        />
+        <div class="linear-loader">
+          <div class="bar"></div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Home Page -->
-  <div class="home-container hidden" id="homeContainer">
-    <h1 class="title">Digit Destroyer</h1>
+    <!-- Home Page -->
+    <div class="home-container hidden" id="homeContainer">
+      <h1 class="title">Digit Destroyer</h1>
 
-    <div class="btn-group">
-      <button class="btn" onclick="startGame()">Start</button>
-      <button class="btn" onclick="showInstructions()">How to Play</button>
-      <button class="btn" onclick="showAbout()">About Game</button>
+      <div class="btn-group">
+        <button class="btn" onclick="startGame()">Start</button>
+        <button class="btn" onclick="showInstructions()">How to Play</button>
+        <button class="btn" onclick="showAbout()">About Game</button>
+      </div>
+
+      <!-- Instructions Modal -->
     </div>
-
-    <!-- Instructions Modal -->
-  </div>
-  <div class="modal" id="instructionsModal">
-    <div class="modal-content">
-      <h3>🎯 How to Play</h3>
-      <ul>
-        <li><strong>Hover</strong> to preview groups</li>
-        <li><strong>Click</strong> to destroy 2+ adjacent digits</li>
-        <li><strong>Larger groups = Bonus points!</strong> Build combos for mega scores</li>
-        <li>🌟 <strong>Power-ups</strong> appear randomly - click to activate!</li>
-        <li>Total <strong> 15 levels 🏆</strong> to master!</li>
-			  <li>Each level needs 600 score.</li>
-      </ul>
-      <div class="modal-btn-group">
-        <button class="btn" onclick="closeModal('instructionsModal')">Close</button>
+    <div class="modal" id="instructionsModal">
+      <div class="modal-content">
+        <h3>🎯 How to Play</h3>
+        <ul>
+          <li><strong>Hover</strong> to preview groups</li>
+          <li><strong>Click</strong> to destroy 2+ adjacent digits</li>
+          <li>
+            <strong>Larger groups = Bonus points!</strong> Build combos for mega
+            scores
+          </li>
+          <li>
+            🌟 <strong>Power-ups</strong> appear randomly - click to activate!
+          </li>
+          <li>Total <strong> 15 levels 🏆</strong> to master!</li>
+          <li>Each level needs 600 score.</li>
+        </ul>
+        <div class="modal-btn-group">
+          <button class="btn" onclick="closeModal('instructionsModal')">
+            Close
+          </button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- About Modal -->
-  <div class="modal" id="aboutModal">
-    <div class="modal-content">
-      <h3>ℹ️ About Game</h3>
-      <p>
-        Digit Destroyer is a fun and fast-paced puzzle game.
-        Match digits, make combos, and destroy blocks for maximum score!
-      </p>
-      <div class="modal-btn-group">
-        <button class="btn" onclick="closeModal('aboutModal')">Close</button>
+    <!-- About Modal -->
+    <div class="modal" id="aboutModal">
+      <div class="modal-content">
+        <h3>ℹ️ About Game</h3>
+        <p>
+          Digit Destroyer is a fun and fast-paced puzzle game. Match digits,
+          make combos, and destroy blocks for maximum score!
+        </p>
+        <div class="modal-btn-group">
+          <button class="btn" onclick="closeModal('aboutModal')">Close</button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <script>
-    // Splash Logic (smooth fade after loader completes)
-    window.addEventListener("load", () => {
-      const splash = document.getElementById("splashDisplay");
-      const home = document.getElementById("homeContainer");
-      const bar = document.querySelector(".linear-loader .bar");
+    <script>
+      // Splash Logic (smooth fade after loader completes)
+      window.addEventListener("load", () => {
+        const splash = document.getElementById("splashDisplay");
+        const home = document.getElementById("homeContainer");
+        const bar = document.querySelector(".linear-loader .bar");
 
-      // Check if splash shown already in this session
-      const splashShown = sessionStorage.getItem("splashShown");
-      console.log("Splash shown in session:", splashShown);
+        // Check if splash shown already in this session
+        const splashShown = sessionStorage.getItem("splashShown");
+        console.log("Splash shown in session:", splashShown);
 
-      if (!splashShown) {
-        // Show splash only on first open of the game
-        bar.classList.add("fill");
-        setTimeout(() => {
+        if (!splashShown) {
+          // Show splash only on first open of the game
+          bar.classList.add("fill");
+          setTimeout(() => {
+            splash.classList.add("hidden");
+            home.classList.remove("hidden");
+            // Mark splash as shown for this session
+            sessionStorage.setItem("splashShown", "true");
+          }, 2200);
+        } else {
+          // Skip splash if already shown in this session
           splash.classList.add("hidden");
           home.classList.remove("hidden");
-          // Mark splash as shown for this session
-          sessionStorage.setItem("splashShown", "true");
-        }, 2200);
-      } else {
-        // Skip splash if already shown in this session
-        splash.classList.add("hidden");
-        home.classList.remove("hidden");
+        }
+      });
+
+      function startGame() {
+        location.replace("game.html");
       }
-    });
 
-    function startGame() {
-      location.replace("game.html");
-    }
+      function showInstructions() {
+        document.getElementById("instructionsModal").style.display = "flex";
+        document.getElementById("aboutModal").style.display = "none";
+      }
 
-    function showInstructions() {
-      document.getElementById("instructionsModal").style.display = "flex";
-      document.getElementById("aboutModal").style.display = "none";
-    }
+      function showAbout() {
+        document.getElementById("aboutModal").style.display = "flex";
+      }
 
-    function showAbout() {
-      document.getElementById("aboutModal").style.display = "flex";
-    }
-
-    function closeModal(id) {
-      document.getElementById(id).style.display = "none";
-    }
-  </script>
-</body>
-
+      function closeModal(id) {
+        document.getElementById(id).style.display = "none";
+      }
+    </script>
+  </body>
 </html>
