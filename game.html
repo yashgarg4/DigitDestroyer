@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <link
+      rel="shortcut icon"
+      href="./assets/icons/ficon.jpeg"
+      type="image/x-icon"
+    />
+    <title>Digit Destroyer</title>
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+  </head>
+
+  <body>
+    <div class="special-effects" id="specialEffects"></div>
+
+    <div class="game-container">
+      <h1 class="title">DIGIT DESTROYER</h1>
+
+      <div class="combo-display" id="comboDisplay">
+        COMBO x<span id="comboMultiplier">0</span>
+      </div>
+
+      <div class="game-stats">
+        <div class="stat-item">
+          <div class="stat-label">Score</div>
+          <div class="stat-value" id="score">0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Time</div>
+          <div class="stat-value" id="timer">60</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Level</div>
+          <div class="stat-value" id="level">1/15</div>
+        </div>
+      </div>
+
+      <!-- Controls moved to the top -->
+      <div class="controls">
+        <button class="btn" id="pauseBtn">Pause</button>
+        <button class="btn" onclick="shuffleGridEvent()">🔄</button>
+        <button class="btn" id="resetBtn">Reset</button>
+      </div>
+
+      <div class="game-grid" id="gameGrid"></div>
+
+      <div class="instructions-bottom">
+        <button class="btn" onclick="gotoHome()">Go to Home</button>
+      </div>
+    </div>
+    <div class="instructions-container">
+      <div class="instructions">
+        <h3>🎯 How to Play:</h3>
+        <ul>
+          <li><strong>Hover</strong> to preview groups</li>
+          <li><strong>Click</strong> to destroy 2+ adjacent digits</li>
+          <li>
+            <strong>Larger groups = Bonus points!</strong> Build combos for mega
+            scores
+          </li>
+          <li>
+            🌟 <strong>Power-ups</strong> appear randomly - click to activate!
+          </li>
+          <li>Total <strong> 15 levels 🏆</strong> to master!</li>
+          <li>Each level needs 600 score.</li>
+        </ul>
+        <button class="btn" id="startBtn">OK</button>
+      </div>
+    </div>
+
+    <div class="game-over" id="gameOver">
+      <div class="game-over-content">
+        <h2 class="title">🎮 GAME OVER! 🎮</h2>
+        <div class="final-score" id="finalScore">Final Score: 0</div>
+
+        <div class="gameover-btn-group">
+          <!-- <button class="btn" onclick="gotoHome()">Go to Home</button> -->
+          <button class="btn" onclick="startNewGame()">🚀 Play Again</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="./assets/js/app.js" type="text/javascript"></script>
+    <script
+      src="./assets/js/jiogames_sp_wrapper.js"
+      type="text/javascript"
+    ></script>
+    <script>
+      function gotoHome() {
+        try {
+          // If ad system available and an interstitial is ready, show ad first,
+          // then navigate after ad closes. Otherwise navigate immediately.
+          if (
+            typeof isAdReady !== "undefined" &&
+            isAdReady &&
+            typeof showAd === "function"
+          ) {
+            // window._navigateToHomeAfterAd = true;
+            showAd();
+            return;
+          }
+        } catch (e) {
+          console.warn("gotoHome ad check failed", e);
+        }
+        // fallback: navigate immediately
+        location.replace("index.html");
+      }
+    </script>
+    <script>
+      window.addEventListener("load", function () {
+        gameCacheAd();
+      });
+    </script>
+    <script>
+      // Pause game when window/tab is hidden, resume when visible
+      document.addEventListener("visibilitychange", () => {
+        if (!game || !game.isPlaying) return;
+
+        const { pauseBtn } = game.els();
+
+        if (document.hidden) {
+          if (!game.isPaused) {
+            game.isPaused = true;
+            game._stopTimer();
+            pauseBtn.textContent = "Resume";
+            game.sound.sfxClick();
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
