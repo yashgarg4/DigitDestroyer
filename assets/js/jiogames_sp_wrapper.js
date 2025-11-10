@@ -133,9 +133,9 @@ window.onAdClosed = function (data, pIsVideoCompleted, pIsEligibleForReward) {
   adSpotKey == adSpotInterstitial &&
     ((isAdReady = false),
     console.log("JioGames: onAdClose MidRoll " + isAdReady));
-  {
-    location.replace("index.html");
-  }
+  //   {
+  //     location.replace("index.html");
+  //   }
   adSpotKey == adSpotRewardedVideo &&
     ((isRVReady = false),
     console.log("JioGames: onAdClose RewardedVideo " + isRVReady));

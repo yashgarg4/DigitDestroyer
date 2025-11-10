@@ -92,23 +92,13 @@
     ></script>
     <script>
       function gotoHome() {
-        try {
-          // If ad system available and an interstitial is ready, show ad first,
-          // then navigate after ad closes. Otherwise navigate immediately.
-          if (
-            typeof isAdReady !== "undefined" &&
-            isAdReady &&
-            typeof showAd === "function"
-          ) {
-            // window._navigateToHomeAfterAd = true;
-            showAd();
-            return;
-          }
-        } catch (e) {
-          console.warn("gotoHome ad check failed", e);
+        if (isAdReady) {
+          showAd();
+          location.replace("index.html");
+        } else {
+          console.log("mid roll Ad not ready, navigating to home directly.");
+          location.replace("index.html");
         }
-        // fallback: navigate immediately
-        location.replace("index.html");
       }
     </script>
     <script>
